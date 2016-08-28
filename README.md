@@ -1,5 +1,7 @@
 ## AudioSwitch
 
+[![Appveyor](https://ci.appveyor.com/api/projects/status/github/syxolk/audioswitch?svg=true)](https://ci.appveyor.com/project/syxolk/audioswitch)
+
 Windows command-line tool that switches the default audio output device.
 This work is heavily based on [AudioEndPointController by Dan Stevens](https://github.com/DanStevens/AudioEndPointController) with some
 changes:
