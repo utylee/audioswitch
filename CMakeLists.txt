@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
-project(AudioSwitch VERSION 0.1.0)
+project(AudioSwitch VERSION 0.2.0)
 
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 
-add_executable(audioswitch controller.cpp policy_config.h)
+# For systems where the Visual C++ Redistributable
+# for Visual Studio 2015 is not installed
+# (missing MSVCP120D.dll)
+add_definitions("/MT")
+
+add_executable(audioswitch main.cpp controller.cpp controller.h policy_config.h)
 
 install(TARGETS audioswitch DESTINATION bin)
 
