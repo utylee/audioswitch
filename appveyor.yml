@@ -1,0 +1,19 @@
+image: Visual Studio 2015
+platform: x86
+configuration: Release
+
+before_build:
+  - cmake -G "Visual Studio 14 2015"
+
+build:
+  project: PACKAGE.vcxproj
+
+artifacts:
+  - path: '*.msi'
+    name: Installer
+  - path: Release\audioswitch.exe
+    name: Executable
+
+deploy:
+  provider: Environment
+  name: AudioSwitchGithub
