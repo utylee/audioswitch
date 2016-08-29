@@ -34,3 +34,7 @@ Generate MSI file while in `build` directory:
 ```
 cpack
 ```
+
+### Credits
+Icons made by Iconshock from www.iconarchive.com are free for non-commercial use:
+[Music Icon](http://www.iconarchive.com/show/super-vista-general-icons-by-iconshock/music-icon.html)

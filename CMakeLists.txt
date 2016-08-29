@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(AudioSwitch VERSION 0.3)
+project(AudioSwitch LANGUAGES CXX VERSION 0.4)
 
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 
@@ -9,7 +9,7 @@ set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 
-add_executable(audioswitch WIN32 main.cpp controller.cpp controller.h policy_config.h)
+add_executable(audioswitch WIN32 main.cpp controller.cpp controller.h policy_config.h resources.rc)
 
 install(TARGETS audioswitch DESTINATION bin)
 
@@ -19,4 +19,6 @@ set(CPACK_PACKAGE_NAME "AudioSwitch")
 set(CPACK_PACKAGE_VENDOR "Hans Kirchner")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "AudioSwitch")
 set(CPACK_WIX_UPGRADE_GUID "30C45A60-C5D8-44d3-8E11-7394A401B813")
+set(CPACK_PACKAGE_EXECUTABLES "audioswitch" "AudioSwitch")
+set(CPACK_CREATE_DESKTOP_LINKS "audioswitch")
 include(CPack)
