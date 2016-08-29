@@ -8,7 +8,7 @@ set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 # (missing MSVCP120D.dll)
 add_definitions("/MT")
 
-add_executable(audioswitch main.cpp controller.cpp controller.h policy_config.h)
+add_executable(audioswitch WIN32 main.cpp controller.cpp controller.h policy_config.h)
 
 install(TARGETS audioswitch DESTINATION bin)
 
