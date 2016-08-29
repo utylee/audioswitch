@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
-project(AudioSwitch VERSION 0.2.0)
+project(AudioSwitch VERSION 0.3)
 
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 
 # For systems where the Visual C++ Redistributable
 # for Visual Studio 2015 is not installed
-# (missing MSVCP120D.dll)
-add_definitions("/MT")
+# (missing MSVCP120D.dll) -> link statically
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 
 add_executable(audioswitch WIN32 main.cpp controller.cpp controller.h policy_config.h)
 
