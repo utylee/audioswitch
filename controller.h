@@ -4,10 +4,10 @@
 #include <vector>
 
 struct AudioDevice {
-    std::wstring friendlyName;
+    std::string friendlyName;
     unsigned long state;
-    std::wstring description;
-    std::wstring interfaceFriendlyName;
+    std::string description;
+    std::string interfaceFriendlyName;
     std::wstring id;
 };
 

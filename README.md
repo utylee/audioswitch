@@ -5,9 +5,20 @@
 Windows command-line tool that switches the default audio output device.
 This work is heavily based on [AudioEndPointController by Dan Stevens](https://github.com/DanStevens/AudioEndPointController) with some
 changes:
-- Default behavior (without any command line flags) is to switch between audio
-  devices that are defined in `%APPDATA%\AudioSwitch\devices.txt`
+- Default behavior (without any command line flags) is to do
+  whatever is configured in `%LOCALAPPDATA%\AudioSwitch\config.txt`
+- On first start the user is prompted to edit the config file
 - Build system is now CMake
+- No need for .NET or Visual C++ Redistributable
+
+What this program does NOT do:
+- Display fancy GUI
+- Run in background
+- Register hotkeys
+
+If you want any of these, you should better use
+[AudioSwitcher_v1 by xenolightning](https://github.com/xenolightning/AudioSwitcher_v1) or
+[AudioSwitch by sirWest](https://github.com/sirWest/AudioSwitch)
 
 **The main reason you want to use this: If you got ROCCAT hardware you
 can only select EXE files as Quicklaunch targets for Macro keys in the driver.

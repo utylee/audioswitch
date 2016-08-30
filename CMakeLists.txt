@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(AudioSwitch LANGUAGES CXX VERSION 0.4)
+project(AudioSwitch LANGUAGES CXX VERSION 0.5)
 
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 

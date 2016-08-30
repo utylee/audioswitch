@@ -8,6 +8,7 @@
 
 static bool buildAudioDevice(AudioDevice &device, IMMDevice* imm);
 static std::wstring getDeviceProperty(IPropertyStore* pStore, const PROPERTYKEY key);
+static std::string noW(const std::wstring &wstr);
 
 bool AudioController::listDevices(std::vector<AudioDevice> &list, AudioDevice &defaultDevice, bool listAll) {
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
@@ -102,9 +103,9 @@ bool buildAudioDevice(AudioDevice &device, IMMDevice* imm) {
         return false;
     }
 
-    device.friendlyName = getDeviceProperty(pStore, PKEY_Device_FriendlyName);
-    device.description = getDeviceProperty(pStore, PKEY_Device_DeviceDesc);
-    device.interfaceFriendlyName = getDeviceProperty(pStore, PKEY_DeviceInterface_FriendlyName);
+    device.friendlyName = noW(getDeviceProperty(pStore, PKEY_Device_FriendlyName));
+    device.description = noW(getDeviceProperty(pStore, PKEY_Device_DeviceDesc));
+    device.interfaceFriendlyName = noW(getDeviceProperty(pStore, PKEY_DeviceInterface_FriendlyName));
 
     pStore->Release();
 
@@ -123,4 +124,10 @@ std::wstring getDeviceProperty(IPropertyStore* pStore, const PROPERTYKEY key)
     } else {
         return std::wstring();
     }
+}
+
+std::string noW(const std::wstring &wstr) {
+    char buf[200];
+    sprintf_s(buf, sizeof buf, "%ws", wstr.c_str());
+    return buf;
 }
