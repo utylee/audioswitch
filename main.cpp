@@ -92,9 +92,9 @@ void createDefaultConfig(const std::string &configPath) {
     std::string firstDevice = defaultDev.friendlyName;
     std::string secondDevice;
 
-    for(unsigned int i = 0; i < list.size(); i++) {
-        if(defaultDev.id != list[i].id) {
-            secondDevice = list[i].friendlyName;
+    for(const auto& device : list) {
+        if(defaultDev.id != device.id) {
+            secondDevice = device.friendlyName;
             break;
         }
     }
@@ -115,8 +115,8 @@ void createDefaultConfig(const std::string &configPath) {
           "\n"
           "# This is a list of all audio devices that are currently enabled:\n";
 
-    for(unsigned int i = 0; i < list.size(); i++) {
-        fs << "# " << list[i].friendlyName << "\n";
+    for(const auto& device : list) {
+        fs << "# " << device.friendlyName << "\n";
     }
 
     fs.close();
@@ -173,17 +173,23 @@ void circleMode() {
         return;
     }
 
-    int defaultIndex = 0;
+    auto nextIt = list.begin();
 
-    for(unsigned int i = 0; i  < list.size(); i++) {
-        if(list[i].id == defaultDev.id) {
-            defaultIndex = i;
+    for(auto it = list.begin(); it != list.end(); ++it) {
+        if(it->id == defaultDev.id) {
+            nextIt = it;
             break;
         }
     }
 
-    int nextIndex = (defaultIndex + 1) % list.size();
-    AudioController::setDefault(list[nextIndex]);
+    nextIt++;
+
+    // if reached end, then start from beginning
+    if(nextIt == list.end()) {
+        nextIt = list.begin();
+    }
+
+    AudioController::setDefault(*nextIt);
 }
 
 void toggleMode(const AudioSwitchConfig &config) {
@@ -198,9 +204,9 @@ void toggleMode(const AudioSwitchConfig &config) {
         lookFor = config.firstDevice;
     }
 
-    for(unsigned int i = 0; i < list.size(); i++) {
-        if(list[i].friendlyName.find(lookFor) != std::string::npos) {
-            AudioController::setDefault(list[i]);
+    for(const auto& device : list) {
+        if(device.friendlyName.find(lookFor) != std::string::npos) {
+            AudioController::setDefault(device);
             break;
         }
     }

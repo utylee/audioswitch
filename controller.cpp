@@ -6,9 +6,11 @@
 #include "Propidl.h"
 #include "Functiondiscoverykeys_devpkey.h"
 
-static bool buildAudioDevice(AudioDevice &device, IMMDevice* imm);
-static std::wstring getDeviceProperty(IPropertyStore* pStore, const PROPERTYKEY key);
-static std::string noW(const std::wstring &wstr);
+namespace {
+bool buildAudioDevice(AudioDevice &device, IMMDevice* imm);
+std::wstring getDeviceProperty(IPropertyStore* pStore, const PROPERTYKEY key);
+std::string noW(const std::wstring &wstr);
+}
 
 bool AudioController::listDevices(std::vector<AudioDevice> &list, AudioDevice &defaultDevice, bool listAll) {
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
@@ -81,6 +83,8 @@ bool AudioController::setDefault(const AudioDevice &device) {
 
 // INTERNAL FUNCTIONS
 
+namespace {
+
 bool buildAudioDevice(AudioDevice &device, IMMDevice* imm) {
     // get ID
     wchar_t* strID = NULL;
@@ -130,4 +134,6 @@ std::string noW(const std::wstring &wstr) {
     char buf[200];
     sprintf_s(buf, sizeof buf, "%ws", wstr.c_str());
     return buf;
+}
+
 }
