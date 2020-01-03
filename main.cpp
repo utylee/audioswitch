@@ -23,12 +23,24 @@ void createDefaultConfig(const std::string &configPath);
 void readConfig(std::ifstream &fs, AudioSwitchConfig &config);
 std::string trim(std::string str, const std::string &delims = " \t\n\r\f\v");
 void circleMode();
+void setaudio(char n);
 void toggleMode(const AudioSwitchConfig &config);
 
 // http://stackoverflow.com/questions/8945018/hiding-the-black-window-in-c
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    LPTSTR lpCmdLine, int nCmdShow) {
+	
+	// 0일 경우는 기본 스피커입니다
+	if (!strcmp("0", lpCmdLine)) {
+		//MessageBox(NULL, "Realtek", "msg", 0);
+		setaudio(2);
+	}
+	else if (!strcmp("1", lpCmdLine)) {
+		//MessageBox(NULL, "Focusrite", "msg", 0);
+		setaudio(1);
+	}
 
+	/*
     std::string configPath = getConfigPath();
     std::ifstream fs(configPath);
 
@@ -47,6 +59,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     } else {
         firstRun(configPath);
     }
+	*/
 
     return 0;
 }
@@ -162,6 +175,15 @@ std::string trim(std::string str, const std::string& delims) {
     str.erase(0, str.find_first_not_of(delims));
     str.erase(str.find_last_not_of(delims) + 1);
     return str;
+}
+
+void setaudio(char n) {
+    std::vector<AudioDevice> list;
+    AudioDevice defaultDev;
+    AudioController::listDevices(list, defaultDev);
+
+    AudioController::setDefault(list[n]);
+    //AudioController::setDefault(*nextIt);
 }
 
 void circleMode() {
