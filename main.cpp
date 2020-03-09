@@ -30,6 +30,7 @@ void toggleMode(const AudioSwitchConfig &config);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    LPTSTR lpCmdLine, int nCmdShow) {
 	
+	/*
 	// 0일 경우는 기본 스피커입니다
 	if (!strcmp("0", lpCmdLine)) {
 		//MessageBox(NULL, "Realtek", "msg", 0);
@@ -39,6 +40,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//MessageBox(NULL, "Focusrite", "msg", 0);
 		setaudio(1);
 	}
+	*/
+	setaudio(atoi(lpCmdLine));
 
 	/*
     std::string configPath = getConfigPath();
@@ -102,13 +105,21 @@ void createDefaultConfig(const std::string &configPath) {
     AudioDevice defaultDev;
     AudioController::listDevices(list, defaultDev);
 
-    std::string firstDevice = defaultDev.friendlyName;
-    std::string secondDevice;
+	// first, second로 두개일 경우만 가정했는데 세개이상도 가능하도록 배열로 저장합니다 devices
+	std::vector<std::string> devices;
+    //std::string firstDevice = defaultDev.friendlyName;
+    //std::string secondDevice;
+	//
+    //std::string devices[0] = defaultDev.friendlyName;
+	devices.push_back(defaultDev.friendlyName);
+	byte num = 1;
 
     for(const auto& device : list) {
         if(defaultDev.id != device.id) {
-            secondDevice = device.friendlyName;
-            break;
+			devices.push_back(device.friendlyName);
+			num++;
+            //secondDevice = device.friendlyName;
+            //break;
         }
     }
 
@@ -123,8 +134,9 @@ void createDefaultConfig(const std::string &configPath) {
           "\n"
           "mode = circle\n"
           "\n"
-          "first_device = " << firstDevice << "\n"
-          "second_device = " << secondDevice << "\n"
+          "first_device = " << devices[0] << "\n"
+          "second_device = " << devices[1] << "\n"
+          "third_device = " << devices[2] << "\n"
           "\n"
           "# This is a list of all audio devices that are currently enabled:\n";
 
